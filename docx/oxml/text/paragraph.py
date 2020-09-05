@@ -14,6 +14,7 @@ class CT_P(BaseOxmlElement):
     """
     pPr = ZeroOrOne('w:pPr')
     r = ZeroOrMore('w:r')
+    h = ZeroOrMore('w:hyperlink')
 
     def _insert_pPr(self, pPr):
         self.insert(0, pPr)
@@ -76,3 +77,7 @@ class CT_P(BaseOxmlElement):
     def style(self, style):
         pPr = self.get_or_add_pPr()
         pPr.style = style
+
+    @property
+    def runs(self):
+        return self.xpath('./w:r | ./w:hyperlink/w:r')

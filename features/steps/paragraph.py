@@ -49,6 +49,12 @@ def given_a_paragraph_having_style(context, style_state):
     context.paragraph = document.paragraphs[paragraph_idx]
 
 
+@given('a paragraph with a link')
+def given_a_paragraph_with_a_link(context):
+    document = Document(test_docx('par-link'))
+    context.paragraph = document.paragraphs[0]
+
+
 @given('a paragraph with content and formatting')
 def given_a_paragraph_with_content_and_formatting(context):
     document = Document(test_docx('par-known-paragraphs'))
@@ -156,6 +162,11 @@ def then_the_paragraph_has_the_style_I_set(context):
 @then('the paragraph has the text I set')
 def then_the_paragraph_has_the_text_I_set(context):
     assert context.paragraph.text == 'bar\tfoo\n'
+
+
+@then('the paragraph has all text from the doc')
+def then_the_paragraph_has_all_the_text_from_the_doc(context):
+    assert context.paragraph.text == 'Test link here'
 
 
 @then('the style of the second paragraph matches the style I set')
